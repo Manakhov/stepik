@@ -2,8 +2,6 @@ dict = {}
 
 
 def check_children(class_value, class_key):
-    # if dict[class_key] == []:
-    #     return False
     if class_value in dict[class_key]:
         return True
     else:
@@ -14,7 +12,6 @@ def check_children(class_value, class_key):
 
 
 n = int(input())
-# Описание классов
 for i in range(n):
     class_desc = input().split()
     dict[class_desc[0]] = []
@@ -22,7 +19,6 @@ for i in range(n):
         if cla != class_desc[0] and cla != ':':
             dict[class_desc[0]].append(cla)
 n = int(input())
-# Поиск классов
 for i in range(n):
     class_value, class_key = input().split()
     if class_value not in dict.keys():
