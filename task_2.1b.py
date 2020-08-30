@@ -19,15 +19,11 @@ for i in range(n):
         if cla != class_desc[0] and cla != ':':
             dict[class_desc[0]].append(cla)
 n = int(input())
+dict['Errors'] = []
 for i in range(n):
-    class_value, class_key = input().split()
-    if class_value not in dict.keys():
-        print("No")
-    elif class_key not in dict.keys():
-        print("No")
-    elif class_key == class_value:
-        print("Yes")
-    elif check_children(class_value, class_key):
-        print("Yes")
-    else:
-        print("No")
+    error_name = input()
+    for dic in dict['Errors']:
+        if check_children(dic, error_name):
+            print(error_name)
+            break
+    dict['Errors'].append(error_name)
