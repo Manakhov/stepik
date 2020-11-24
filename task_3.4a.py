@@ -1,16 +1,28 @@
-import requests
-import re
+import csv
 
-A = "https://stepic.org/media/attachments/lesson/24472/sample1.html"
-B = "https://stepic.org/media/attachments/lesson/24472/sample2.html"
-res_A = requests.get(A)
-res_B = requests.get(B)
-html_find_A = re.findall(r"<a href=\"([\S]+)\"", res_A.text)
-for html in html_find_A:
-    res_C = requests.get(html)
-    html_find_C = re.findall(r"<a href=\"([\S]+)\"", res_C.text)
-    if B in html_find_C:
-        print("Yes")
-        break
-else:
-    print("No")
+number_Primary_Type = 0
+number_Date = 0
+max_number = 0
+dict = {}
+with open("Crimes.csv") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        if number_Primary_Type == 0:
+            for ro in row:
+                if ro == "Primary Type":
+                    break
+                number_Primary_Type = number_Primary_Type + 1
+            for ro in row:
+                if ro == "Date":
+                    break
+                number_Date = number_Date + 1
+        if "/2015" in row[number_Date]:
+            if row[number_Primary_Type] in dict.keys():
+                dict[row[number_Primary_Type]] = dict[row[number_Primary_Type]] + 1
+            else:
+                dict[row[number_Primary_Type]] = 1
+for dic in dict:
+    if dict[dic] > max_number:
+        max_number = dict[dic]
+        name_Primary = dic
+print(name_Primary)

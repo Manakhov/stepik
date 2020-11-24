@@ -1,47 +1,16 @@
-import sys
+import requests
 import re
 
-# for line in sys.stdin:
-#     line = line.rstrip()
-#     if len(re.findall(r"cat", line)) > 1:
-#         print(line)
-
-# for line in sys.stdin:
-#     line = line.rstrip()
-#     if re.search(r"\bcat\b", line):
-#         print(line)
-
-# for line in sys.stdin:
-#     line = line.rstrip()
-#     if re.search(r"z...z", line):
-#         print(line)
-
-# for line in sys.stdin:
-#     line = line.rstrip()
-#     if re.search(r"\\", line):
-#         print(line)
-
-# for line in sys.stdin:
-#     line = line.rstrip()
-#     if re.search(r"\b(\w+)\1\b", line):
-#         print(line)
-
-# for line in sys.stdin:
-#     line = line.rstrip()
-#     newline = re.sub(r"human", r"computer", line)
-#     print(newline)
-
-# for line in sys.stdin:
-#     line = line.rstrip()
-#     newline = re.sub(r"\b[aA]+\b", r"argh", line, 1)
-#     print(newline)
-
-# for line in sys.stdin:
-#     line = line.rstrip()
-#     newline = re.sub(r"\b(\w)(\w)(\w*)\b", r"\2\1\3", line)
-#     print(newline)
-
-for line in sys.stdin:
-    line = line.rstrip()
-    newline = re.sub(r"(\w)\1*", r"\1", line)
-    print(newline)
+A = "https://stepic.org/media/attachments/lesson/24472/sample1.html"
+B = "https://stepic.org/media/attachments/lesson/24472/sample2.html"
+res_A = requests.get(A)
+res_B = requests.get(B)
+html_find_A = re.findall(r"<a href=\"([\S]+)\"", res_A.text)
+for html in html_find_A:
+    res_C = requests.get(html)
+    html_find_C = re.findall(r"<a href=\"([\S]+)\"", res_C.text)
+    if B in html_find_C:
+        print("Yes")
+        break
+else:
+    print("No")
