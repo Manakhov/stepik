@@ -6,5 +6,3 @@ with open("dataset_24465_4 (1).txt", "r") as file_read, open("dataset_new.txt", 
         i = i + 1
     for count in range(i):
         file_write.write(text_file.pop())
-
-
